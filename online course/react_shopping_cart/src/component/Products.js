@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Currency from "../utility";
 
 class Products extends Component{
     render(){
@@ -14,7 +15,7 @@ class Products extends Component{
                                 </a>
                                 <div className="price">
                                 <div>{Currency(p.price)}</div>
-                                    <button className="btn primary">Add to cart</button>
+                                    <button onClick={() => this.props.addToCart(p)} className="btn primary">Add to cart</button>
                                 </div>
                             </div>
                         </li>
@@ -25,8 +26,9 @@ class Products extends Component{
     }
 }
 
-function Currency(num){
-    return "$"+Number(num.toFixed(1)).toLocaleString()+" "; //fixed-point notation
-}
-
 export default Products;
+
+/*
+use callback if passing parameter at eventlistener func
+https://stackoverflow.com/questions/65848052/callback-function-on-button-onclick-in-react-functional-component
+*/

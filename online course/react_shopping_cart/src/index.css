@@ -20,6 +20,9 @@ body, input, select, button, textarea{
 a:hover{
   color: var(--secondary-color);
 }
+.right{
+  text-align: right;
+}
 .grid-container{ /* https://grid.malven.co/ */
   display: grid; /* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout */
   height: 100%;
@@ -122,5 +125,30 @@ footer{
   border-bottom: 0.1rem var(--border-color) solid;
 }
 .filter div{ /* 3 equal size in length */
+  flex: 1;
+}
+.cart{
+  display: flex;
+  padding: 1rem;
+  margin: 1rem;
+}
+.cart-header{
+  border-bottom: 0.1rem var(--border-color) solid;
+}
+.cart-item{
+  padding: 0;
+  width: 100%;
+  list-style-type: none;
+}
+.cart-item img{
+  width: 5rem;
+}
+.cart-item li{
+  display: flex;
+}
+.cart-item li div{
+  padding: 0.5rem;
+}
+.cart-item li div:last-child{
   flex: 1;
 }
