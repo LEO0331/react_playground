@@ -30,7 +30,7 @@ a:hover{
 a{
   text-decoration: none;
 }
-a:hover {
+a:hover{
   color: var(--secondary-color);
 }
 header{
@@ -55,19 +55,17 @@ footer{
   justify-content: center;
   align-items: center;
 }
-.content {
+.content{
   display: flex;
   flex-wrap: wrap;
 }
-.main {
+.main{
   flex: 3 60rem;
 }
-.sidebar {
+.sidebar{
   flex: 1 20rem;
 }
-
-/* products */
-.products {
+.products{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -76,53 +74,53 @@ footer{
   margin: 0;
   list-style-type: none;
 }
-.products li {
+.products li{
   flex: 0 1 29rem;
   height: 47rem;
   padding: 1rem;
 }
-.product {
+.product{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
 }
-.product img {
+.product img{
   max-width: 37rem;
   max-height: 37rem;
 }
-.price {
+.price{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .price div,
-.price button {
+.price button{
   text-align: center;
   flex: 1;
 }
-.price div {
+.price div{
   font-size: 2rem;
 }
-.btn {
+.btn{
   padding: 1rem;
   border: 0.1rem var(--border-color) solid;
   background-color: white;
   cursor: pointer;
 }
-.btn:hover {
+.btn:hover{
   border: 0.1rem var(--border-color) solid;
 }
-.btn.primary {
+.btn.primary{
   background-color: var(--secondary-color);
 }
-.filter {
+.filter{
   display: flex;
   justify-content: space-between;
   padding: 1rem;
   margin: 1rem;
   border-bottom: 0.1rem var(--border-color) solid;
 }
-.filter div {
+.filter div{ /* 3 equal size in length */
   flex: 1;
 }
