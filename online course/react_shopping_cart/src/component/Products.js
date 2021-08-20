@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 class Products extends Component{
-    
     render(){
         return(
             <div>
@@ -14,9 +13,7 @@ class Products extends Component{
                                     <p>{p.title}</p>
                                 </a>
                                 <div className="price">
-                                    <div>
-                                        {Currency(p.price)}
-                                    </div>
+                                <div>{Currency(p.price)}</div>
                                     <button className="btn primary">Add to cart</button>
                                 </div>
                             </div>
@@ -24,7 +21,7 @@ class Products extends Component{
                     ))}
                 </ul>
             </div>
-        )
+        );
     }
 }
 
