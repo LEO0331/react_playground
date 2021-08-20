@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import data from "./data.json";
-import Products from "./components/Products";
-import Filter from "./components/Filter";
+import Products from "./component/Products";
+import Filter from "./component/Filter";
 
 class App extends Component {
   constructor() {
@@ -54,7 +54,7 @@ class App extends Component {
           <a href="/">Shopping Cart</a>    
         </header>
         <main>
-        <div className="content">
+          <div className="content">
             <div className="main">
               <Filter
                 count={this.state.products.length}

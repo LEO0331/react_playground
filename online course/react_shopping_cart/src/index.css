@@ -109,7 +109,7 @@ footer{
   cursor: pointer;
 }
 .btn:hover{
-  border: 0.1rem var(--border-color) solid;
+  border: 0.1rem grey solid;
 }
 .btn.primary{
   background-color: var(--secondary-color);
