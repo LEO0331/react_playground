@@ -14,6 +14,12 @@ class App extends Component {
       cartItems: [],
     };
   }
+  removeItem = (p) => { //implement minus func
+    const cartItems = this.state.cartItems.slice();
+    this.setState({
+      cartItems: cartItems.filter(i => i._id !== p._id) //create a new array
+    });
+  };
   addToCart = (p) => {
     const cartItems = this.state.cartItems.slice();
     let flag = false;
@@ -80,7 +86,7 @@ class App extends Component {
               <Products products={this.state.products} addToCart={this.addToCart}></Products>
             </div>
             <div className="sidebar">
-              <Cart cartItems={this.state.cartItems} />
+              <Cart cartItems={this.state.cartItems} removeItem={this.removeItem} />
             </div>
           </div>
         </main>
