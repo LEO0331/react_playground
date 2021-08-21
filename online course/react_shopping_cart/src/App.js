@@ -11,16 +11,22 @@ class App extends Component {
       products: data.products,
       size: "",
       sort: "",
-      cartItems: [],
+      cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
     };
   }
-  removeItem = (p) => { //implement minus func
+  createOrder = order => {
+    alert("save order later")
+  }
+  removeItem = p => { //implement minus func
     const cartItems = this.state.cartItems.slice();
+    const filtered = cartItems.filter(i => i._id !== p._id) //create a new array
     this.setState({
-      cartItems: cartItems.filter(i => i._id !== p._id) //create a new array
+      cartItems: filtered 
     });
+    //https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+    localStorage.setItem("cartItems", JSON.stringify(filtered)); //sessionStorage
   };
-  addToCart = (p) => {
+  addToCart = p => {
     const cartItems = this.state.cartItems.slice();
     let flag = false;
     cartItems.forEach(item => {
@@ -33,6 +39,8 @@ class App extends Component {
       cartItems.push({...p, count: 1}) //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
     }
     this.setState({cartItems});
+    //https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+    localStorage.setItem("cartItems", JSON.stringify(cartItems)); //convert JS obj to string
   };
   sortProducts = (event) => {
     const sort = event.target.value;
@@ -86,7 +94,7 @@ class App extends Component {
               <Products products={this.state.products} addToCart={this.addToCart}></Products>
             </div>
             <div className="sidebar">
-              <Cart cartItems={this.state.cartItems} removeItem={this.removeItem} />
+              <Cart cartItems={this.state.cartItems} removeItem={this.removeItem} createOrder={this.createOrder} />
             </div>
           </div>
         </main>
