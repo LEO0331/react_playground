@@ -185,3 +185,24 @@ input{
   padding: 1rem;
   border: 0.1rem var(--border-color) solid;
 }
+.close-btn{
+  position: absolute;
+  right: 1rem;
+  top: 1.5rem;
+  z-index: 100;
+}
+.product-detail{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-height: 96vh;
+}
+.product-detail img{
+  max-height: 100vh;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+.product-description{
+  flex: 1 1;
+  margin: 1rem;
+}

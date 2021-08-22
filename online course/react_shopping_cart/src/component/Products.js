@@ -9,19 +9,19 @@ class Products extends Component{
     constructor(props){
         super(props);
         this.state = {
-            showModal: false
+            product: null
         }
         //this.handleOpenModal = this.handleOpenModal.bind(this);
         //this.handleCloseModal = this.handleCloseModal.bind(this);
     };
-    handleOpenModal = () => {
-        this.setState({showModal: true});
+    handleOpenModal = (product) => {
+        this.setState({product}); //fill in current product
     }
     handleCloseModal = () => {
-        this.setState({showModal: false});
+        this.setState({product: null});
     }
     render(){
-        const {showModal} = this.state;
+        const {product} = this.state;
         return(
             <div>
                 <Fade bottom cascade>
@@ -29,12 +29,12 @@ class Products extends Component{
                         {this.props.products.map(p => (
                             <li key={p._id}>
                                 <div className="product">
-                                    <a href={"#"+p._id} onClick={this.handleOpenModal}>
-                                        <img src={p.image} alt={p.title}></img>
+                                    <a href={"#"+p._id} onClick={() => this.handleOpenModal(p)}>
+                                        <img src={p.image} alt={p.title} />
                                         <p>{p.title}</p>
                                     </a>
                                     <div className="price">
-                                    <div>{Currency(p.price)}</div>
+                                        <div>{Currency(p.price)}</div>
                                         <button onClick={() => this.props.addToCart(p)} className="btn primary">Add to cart</button>
                                     </div>
                                 </div>
@@ -42,10 +42,34 @@ class Products extends Component{
                         ))}
                     </ul>
                 </Fade>
-                {showModal && (
-                    <Modal isOpen={this.state.showModal}>
+                {product && (
+                    <Modal isOpen={true} onRequestClose={this.handleCloseModal}>
                         <Zoom>
-                            <div>show</div>
+                            <button className="close-btn" onClick={this.handleCloseModal}>x</button>
+                            <div className="product-detail">
+                                <img src={product.image} alt={product.title} />
+                                <div className="product-description">
+                                    <p><strong>{product.title}</strong></p>
+                                    <p>{product.description}</p>
+                                    <p>Available Sizes:{" "}
+                                        {product.availableSizes.map(s => (
+                                            <span>
+                                                {" "}
+                                                <button className="btn">{s}</button>
+                                            </span>
+                                        ))}
+                                    </p>
+                                    <div className="price">
+                                        <div>{Currency(product.price)}</div>
+                                        <button className="btn primary" onClick={() => {
+                                                this.props.addToCart(product)
+                                                this.handleCloseModal()
+                                        }}>
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </Zoom>
                     </Modal>
                 )}
