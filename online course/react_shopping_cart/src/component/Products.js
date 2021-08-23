@@ -4,6 +4,8 @@ import Currency from "../utility";
 import Fade from "react-reveal/Fade"; //https://www.react-reveal.com/examples/
 import Modal from "react-modal"; //https://codepen.io/claydiffrient/pen/KNxgav
 import Zoom from "react-reveal/Zoom"; //https://www.npmjs.com/package/react-reveal
+import {connect} from 'react-redux';
+import fetchProducts from "../productActions";
 
 class Products extends Component{
     constructor(props){
@@ -14,6 +16,9 @@ class Products extends Component{
         //this.handleOpenModal = this.handleOpenModal.bind(this);
         //this.handleCloseModal = this.handleCloseModal.bind(this);
     };
+    componentDidMount(){ 
+    	this.props.fetchProducts();
+  	}
     handleOpenModal = (product) => {
         this.setState({product}); //fill in current product
     }
@@ -78,7 +83,10 @@ class Products extends Component{
     }
 }
 
-export default Products;
+function mapStateToProps(state){ 
+	return {products: state.products.items};
+}
+export default connect(mapStateToProps, fetchProducts)(Products);
 
 /*
 use callback if passing parameter at eventlistener func

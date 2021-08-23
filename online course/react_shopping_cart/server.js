@@ -13,28 +13,28 @@ mongoose.connect("mongodb://localhost/react-shopping-cart-db", { //resolve depen
 });
 
 const productSchema = new Schema({
-    _id: {type: shortid.generate},
+    _id: {type: String, default: shortid.generate},
     title: String,
     image: String,
     description: String,
     availableSizes: [String],
     price: Number
 });
-mongoose.model('products', productSchema);
+const Product = mongoose.model('products', productSchema);
 
 app.get('/api/products', async (req, res) => { //fetch
-    const products = await productSchema.find({});
+    const products = await Product.find({});
     res.send(products);
 });
 
 app.post('/api/products', async (req, res) => { //create
-    const newProduct = new productSchema(req.body);
+    const newProduct = new Product(req.body);
     const saved = await newProduct.save();
     res.send(saved);
 });
 //https://mongoosejs.com/docs/api.html#model_Model.findByIdAndDelete
 app.delete('/api/products/:id', async (req, res) => {
-    const deleted = await productSchema.findByIdAndDelete(req.params.id);
+    const deleted = await Product.findByIdAndDelete(req.params.id);
     res.send(deleted);
 });
 
