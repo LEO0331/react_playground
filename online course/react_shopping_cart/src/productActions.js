@@ -1,4 +1,4 @@
-import {FETCH_PRODUCTS, FILTER_PRODUCTS_SIZE, ORDER_PRODUCTS_PRICE} from './types';
+import {FETCH_PRODUCTS, FILTER_PRODUCTS_SIZE, ORDER_PRODUCTS_PRICE, ADD_TO_CART, REMOVE_FROM_CART} from './types';
 
 export const fetchProducts = () => async dispatch => { 
 	const res = await fetch('/api/products');
@@ -33,3 +33,33 @@ export const sortProduct = (filterProduct, sort) => async dispatch => {
 		}
 	});
 };
+
+export const addToCart = (items, product) => async dispatch => {
+	const cartItems = items.slice(); //create a new array
+	let flag = false;
+	cartItems.forEach(element => { //already in cart
+		if(element._id === product._id){
+			element.count++;
+        	flag = true;
+		}
+	});
+	if(!flag){
+		cartItems.push({...product, count: 1}) //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+	};
+	dispatch({
+		type: ADD_TO_CART, 
+		payload: {cartItems}
+	});
+	//https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+    localStorage.setItem("cartItems", JSON.stringify(cartItems)); //convert JS obj to string
+}
+
+export const removeFromCart = (items, product) => async dispatch => {
+	const cartItems = items.slice().filter(i => i._id !== product._id); 
+	dispatch({
+		type: REMOVE_FROM_CART, 
+		payload: {cartItems}
+	});
+    //https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+    localStorage.setItem("cartItems", JSON.stringify(cartItems)); //sessionStorage
+}

@@ -13,31 +13,6 @@ class App extends Component {
   createOrder = order => {
     alert("save order later")
   }
-  removeItem = p => { //implement minus func
-    const cartItems = this.state.cartItems.slice();
-    const filtered = cartItems.filter(i => i._id !== p._id) //create a new array
-    this.setState({
-      cartItems: filtered 
-    });
-    //https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
-    localStorage.setItem("cartItems", JSON.stringify(filtered)); //sessionStorage
-  };
-  addToCart = p => {
-    const cartItems = this.state.cartItems.slice();
-    let flag = false;
-    cartItems.forEach(item => {
-      if(item._id === p._id){ //already in cart
-        item.count++;
-        flag = true;
-      }
-    });
-    if(!flag){
-      cartItems.push({...p, count: 1}) //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-    }
-    this.setState({cartItems});
-    //https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
-    localStorage.setItem("cartItems", JSON.stringify(cartItems)); //convert JS obj to string
-  };
   render(){
     return (
       <div className="grid-container">
