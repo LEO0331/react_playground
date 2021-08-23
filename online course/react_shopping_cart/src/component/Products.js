@@ -4,8 +4,8 @@ import Currency from "../utility";
 import Fade from "react-reveal/Fade"; //https://www.react-reveal.com/examples/
 import Modal from "react-modal"; //https://codepen.io/claydiffrient/pen/KNxgav
 import Zoom from "react-reveal/Zoom"; //https://www.npmjs.com/package/react-reveal
-import {connect} from 'react-redux';
-import fetchProducts from "../productActions";
+import {connect} from 'react-redux'; //npm install --save @types/package name
+import {fetchProducts} from "../productActions";
 
 class Products extends Component{
     constructor(props){
@@ -30,6 +30,7 @@ class Products extends Component{
         return(
             <div>
                 <Fade bottom cascade>
+                    {!this.props.products ? (<div>Loading...</div>) : (
                     <ul className="products">
                         {this.props.products.map(p => (
                             <li key={p._id}>
@@ -45,7 +46,7 @@ class Products extends Component{
                                 </div>
                             </li>
                         ))}
-                    </ul>
+                    </ul> )}
                 </Fade>
                 {product && (
                     <Modal isOpen={true} onRequestClose={this.handleCloseModal}>
@@ -86,7 +87,7 @@ class Products extends Component{
 function mapStateToProps(state){ 
 	return {products: state.products.items};
 }
-export default connect(mapStateToProps, fetchProducts)(Products);
+export default connect(mapStateToProps, {fetchProducts})(Products);
 
 /*
 use callback if passing parameter at eventlistener func
