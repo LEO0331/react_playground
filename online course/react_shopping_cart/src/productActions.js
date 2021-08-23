@@ -6,17 +6,17 @@ export const fetchProducts = () => async dispatch => {
 	dispatch({type: FETCH_PRODUCTS, payload: data});
 };
 
-export const filterProduct = (products, size) => async dispatch => { 
+export const filterProduct = (products, size) => dispatch => { 
 	dispatch({
 		type: FILTER_PRODUCTS_SIZE, 
 		payload: {
 			size: size,
-			items: size === "" ? products : products.filter(p => p.availableSizes.indexOf(size) >= 0)
+			items: size === "ALL" ? products : products.filter(p => p.availableSizes.indexOf(size) >= 0)
 		}
 	});
 };
 
-export const sortProduct = (filterProduct, sort) => async dispatch => { 
+export const sortProduct = (filterProduct, sort) => dispatch => { 
 	const sortedProduct = filterProduct.slice(); //sort filtered products
 	if(sort === "latest"){
 		sortedProduct.sort((a, b) => (a._id < b._id ? 1 : -1));
@@ -34,8 +34,8 @@ export const sortProduct = (filterProduct, sort) => async dispatch => {
 	});
 };
 
-export const addToCart = (items, product) => async dispatch => {
-	const cartItems = items.slice(); //create a new array
+export const addToCart = product => (dispatch, getState) => { //https://redux.js.org/api/store#getstate
+	const cartItems = getState().cart.cartItems.slice(); //create a new array
 	let flag = false;
 	cartItems.forEach(element => { //already in cart
 		if(element._id === product._id){
@@ -54,8 +54,8 @@ export const addToCart = (items, product) => async dispatch => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems)); //convert JS obj to string
 }
 
-export const removeFromCart = (items, product) => async dispatch => {
-	const cartItems = items.slice().filter(i => i._id !== product._id); 
+export const removeFromCart = product => (dispatch, getState) => { 
+	const cartItems = getState().cart.cartItems.slice().filter(i => i._id !== product._id); 
 	dispatch({
 		type: REMOVE_FROM_CART, 
 		payload: {cartItems}

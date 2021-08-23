@@ -4,15 +4,6 @@ import Filter from "./component/Filter";
 import Cart from "./component/Cart";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
-    };
-  }
-  createOrder = order => {
-    alert("save order later")
-  }
   render(){
     return (
       <div className="grid-container">
@@ -22,11 +13,11 @@ class App extends Component {
         <main>
           <div className="content">
             <div className="main">
-              <Filter/>
-              <Products addToCart={this.addToCart} />
+              <Filter />
+              <Products />
             </div>
             <div className="sidebar">
-              <Cart cartItems={this.state.cartItems} removeItem={this.removeItem} createOrder={this.createOrder} />
+              <Cart />
             </div>
           </div>
         </main>

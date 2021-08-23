@@ -33,7 +33,7 @@ class Cart extends Component {
         if (cartItems.length === 0) { //{cartItems.length === 0 ? (<div>) : (<div>)}
             showCart = <div className="cart cart-header">Cart is empty</div>
         } else {
-            showCart= <div className="cart cart-header">You have {cartItems.length} product(s) in the cart</div>
+            showCart= <div className="cart cart-header">You have {cartItems.length} in the cart</div>
         }
         return (
             <div>
@@ -50,7 +50,7 @@ class Cart extends Component {
                                         <div>{item.title}</div>
                                         <div className="right">
                                             {Currency(item.price)} x {item.count}{" "}
-                                            <button className="btn" onClick={() => this.props.removeItem(item)}>Remove</button>
+                                            <button className="btn" onClick={() => this.props.removeFromCart(item)}>Remove</button>
                                         </div>
                                     </div>
                                 </li>
