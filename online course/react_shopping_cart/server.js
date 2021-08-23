@@ -27,7 +27,7 @@ app.get('/api/products', async (req, res) => { //fetch
     res.send(products);
 });
 
-app.post('/api/products', async (req, res) => { //create
+app.post('/api/products', async (req, res) => { //create new products
     const newProduct = new Product(req.body);
     const saved = await newProduct.save();
     res.send(saved);

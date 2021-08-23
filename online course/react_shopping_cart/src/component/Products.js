@@ -85,8 +85,9 @@ class Products extends Component{
 }
 
 function mapStateToProps(state){ 
-	return {products: state.products.items};
+	return {products: state.products.filteredItems};
 }
+
 export default connect(mapStateToProps, {fetchProducts})(Products);
 
 /*
