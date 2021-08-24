@@ -5,7 +5,7 @@ import Fade from "react-reveal/Fade"; //https://www.react-reveal.com/examples/
 import Modal from "react-modal"; //https://codepen.io/claydiffrient/pen/KNxgav
 import Zoom from "react-reveal/Zoom"; //https://www.npmjs.com/package/react-reveal
 import {connect} from 'react-redux'; //npm install --save @types/package name
-import {fetchProducts, addToCart} from "../productActions";
+import {fetchProducts, addToCart} from "../actions";
 
 class Products extends Component{
     constructor(props){

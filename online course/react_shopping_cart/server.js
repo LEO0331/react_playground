@@ -38,5 +38,40 @@ app.delete('/api/products/:id', async (req, res) => {
     res.send(deleted);
 });
 
+const orderSchema = new Schema({
+    _id: {type: String, default: shortid.generate},
+    email: String,
+    name: String,
+    address: String,
+    total: Number,
+    cartItems: [
+        {
+            _id: String,
+            title: String,
+            price: Number,
+            count: Number
+        },
+    ],
+}, {timestamps: true}); //'createdAt' and 'updatedAt' timestamps
+const Order = mongoose.model('order', orderSchema);
+
+app.post('/api/orders', async (req, res) => { 
+    if(!req.body.name || !req.body.email || !req.body.address || !req.body.total || !req.body.cartItems){
+        return res.send({message: "Data is required"})
+    }
+    const savedOrder = await Order(req.body).save();
+    res.send(savedOrder);
+});
+
+app.get("/api/orders", async (req, res) => {
+    const orders = await Order.find({});
+    res.send(orders);
+});
+
+app.delete("/api/orders/:id", async (req, res) => {
+    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
+    res.send(deletedOrder);
+});
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT);
+app.listen(PORT); //serve at http://localhost:5000

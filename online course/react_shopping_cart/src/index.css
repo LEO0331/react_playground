@@ -3,6 +3,7 @@
   --primary-color: rgba(8, 22, 66, 0.952);
   --secondary-color: rgba(243, 162, 11, 0.952);
   --border-color: #d4d4d4;
+  --messageOK-color: rgb(7, 105, 7);
 }
 html{
   box-sizing: border-box;
@@ -205,4 +206,26 @@ input{
 .product-description{
   flex: 1 1;
   margin: 1rem;
+}
+.order-detail{
+  display: flex;
+  flex-direction: column;
+  flex-direction: center;
+  justify-content: center;
+  height: 100%;
+}
+.order-detail li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.order-details li div {
+  padding: 8px;
+}
+.order-details .items {
+  text-align: right;
+  padding: 0;
+}
+.message {
+  color: var(--messageOK-color);
 }

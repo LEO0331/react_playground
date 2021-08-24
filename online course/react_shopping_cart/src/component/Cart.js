@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import Currency from "../utility";
+import Modal from "react-modal";
+import Zoom from "react-reveal/Zoom";
 import Fade from "react-reveal/Fade";
 import {connect} from 'react-redux';
-import {removeFromCart} from "../productActions";
+import {removeFromCart, createOrder, clearOrder} from "../actions";
 
 class Cart extends Component {
     constructor(props){ //state = {showCheckout: false,};
@@ -23,21 +25,68 @@ class Cart extends Component {
             name: this.props.name,
             email: this.props.email,
             address: this.props.address,
-            cartItems: this.props.cartItems
+            cartItems: this.props.cartItems,
+            total: this.props.cartItems.reduce((a,c) => a+c.price*c.count, 0)
         };
         this.props.createOrder(order);
     };
+    closeModal = () => {
+        this.props.clearOrder();
+    }
     render() {
-        const cartItems = this.props.cartItems; //const {artItems} = this.props
+        const {cartItems, order} = this.props; //const cartItems = this.props.cartItems;
         let showCart; //https://react-cn.github.io/react/tips/if-else-in-JSX.html
         if (cartItems.length === 0) { //{cartItems.length === 0 ? (<div>) : (<div>)}
             showCart = <div className="cart cart-header">Cart is empty</div>
         } else {
-            showCart= <div className="cart cart-header">You have {cartItems.length} in the cart</div>
+            showCart= <div className="cart cart-header">You have {cartItems.length} kinds of product(s) in the cart</div>
         }
         return (
             <div>
                 {showCart}
+                {order && (
+                    <Modal isOpen={true} onRequestClose={this.closeModal}>
+                        <Zoom>
+                            <button className="close-btn" onClick={this.closeModal}>x</button>
+                            <div className="order-detail">
+                                <h3 className="message">Congrat! Your order has been placed.</h3>
+                                <h2>Order {order._id}</h2>
+                                <ul>
+                                    <li>
+                                        <div>Name:</div>
+                                        <div>{order.name}</div>
+                                    </li>
+                                    <li>
+                                        <div>Email:</div>
+                                        <div>{order.eamil}</div>
+                                    </li>
+                                    <li>
+                                        <div>Address:</div>
+                                        <div>{order.address}</div>
+                                    </li>
+                                    <li>
+                                        <div>Date:</div>
+                                        <div>{order.createdAt}</div>
+                                    </li>
+                                    <li>
+                                        <div>Total:</div>
+                                        <div>{Currency(order.total)}</div>
+                                    </li>
+                                    <li>
+                                        <div>Cart Items:</div>
+                                        <div>
+                                            {order.cartItems.map(i => (
+                                                <div>
+                                                    {i.count} {" x "} {i.title}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </Zoom>
+                    </Modal>
+                )}
                 <div className="cart">
                     <Fade left cascade>
                         <ul className="cart-item">
@@ -58,7 +107,7 @@ class Cart extends Component {
                         </ul>
                     </Fade>
                 </div>
-                {cartItems.length!==0 && (
+                {cartItems.length !==0 && (
                     <div>
                         <div className="cart">
                             <div className="total">
@@ -106,8 +155,9 @@ class Cart extends Component {
 
 function mapStateToProps(state){ 
 	return {
-        cartItems: state.cart.cartItems
+        cartItems: state.cart.cartItems,
+        order: state.order.order
     };
 }
 
-export default connect(mapStateToProps, {removeFromCart})(Cart);
+export default connect(mapStateToProps, {removeFromCart, createOrder, clearOrder})(Cart);
