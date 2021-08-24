@@ -31,7 +31,19 @@ class Filter extends Component {
         );
     }
 }
-
+export default connect(
+    (state) => ({
+        size: state.products.size,
+        sort: state.products.sort,
+        products: state.products.items,
+        filteredItems: state.products.filteredItems,
+    }),
+    {
+        filterProduct,
+        sortProduct,
+    }
+)(Filter);
+/*
 function mapStateToProps(state){ //onChange
 	return {
         products: state.products.items,
@@ -40,5 +52,5 @@ function mapStateToProps(state){ //onChange
         filteredItems: state.products.filteredItems
     };
 }
-
 export default connect(mapStateToProps, {filterProduct, sortProduct})(Filter);
+*/

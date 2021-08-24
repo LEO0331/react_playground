@@ -1,28 +1,24 @@
 import React, {Component} from 'react';
-import Products from "./component/Products";
-import Filter from "./component/Filter";
-import Cart from "./component/Cart";
+import {BrowserRouter, Route, Link} from 'react-router-dom';
+import HomeScreen from "./screens/HomeScreen";
+import AdminScreen from "./screens/AdminScreen";
 
 class App extends Component {
   render(){
     return (
-      <div className="grid-container">
-        <header className="App-header">
-          <a href="/">Shopping Cart</a>    
-        </header>
-        <main>
-          <div className="content">
-            <div className="main">
-              <Filter />
-              <Products />
-            </div>
-            <div className="sidebar">
-              <Cart />
-            </div>
-          </div>
-        </main>
-        <footer>All rights reserved</footer>
-      </div>
+      <BrowserRouter>
+        <div className="grid-container">
+          <header className="App-header">
+            <Link to="/">Shopping Cart</Link>
+            <Link to="/admin">Admin</Link>    
+          </header>
+          <main>
+            <Route path="/admin" component={AdminScreen} />
+            <Route path="/" component={HomeScreen} exact />
+          </main>
+          <footer>All rights reserved</footer>
+        </div>
+      </BrowserRouter>
     );
   }
 }

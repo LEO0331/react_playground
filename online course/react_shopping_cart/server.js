@@ -5,8 +5,12 @@ const shortid = require('shortid');
 
 const app = express();
 app.use(express.json()); //https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded
+//production
+app.use("/", express.static(__dirname + "/build"));
+app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 
-mongoose.connect("mongodb://localhost/react-shopping-cart-db", { //resolve dependency warnings in deploy to Heroku
+mongoose.connect(
+    process.env.MONGODB_URL || "mongodb://localhost/react-shopping-cart-db", { //resolve dependency warnings in deploy to Heroku
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -44,23 +48,26 @@ const orderSchema = new Schema({
     name: String,
     address: String,
     total: Number,
-    cartItems: [
-        {
+    cartItems: [{
             _id: String,
             title: String,
             price: Number,
             count: Number
-        },
-    ],
-}, {timestamps: true}); //'createdAt' and 'updatedAt' timestamps
+        }],
+    }, 
+    {   
+        timestamps: true
+    }); //'createdAt' and 'updatedAt' timestamps
 const Order = mongoose.model('order', orderSchema);
 
 app.post('/api/orders', async (req, res) => { 
     if(!req.body.name || !req.body.email || !req.body.address || !req.body.total || !req.body.cartItems){
         return res.send({message: "Data is required"})
     }
-    const savedOrder = await Order(req.body).save();
-    res.send(savedOrder);
+    //const newOrder = new Order(req.body);
+    //const saved = await newOrder.save();
+    const order = await Order(req.body).save();
+    res.send(order);
 });
 
 app.get("/api/orders", async (req, res) => {
@@ -69,8 +76,8 @@ app.get("/api/orders", async (req, res) => {
 });
 
 app.delete("/api/orders/:id", async (req, res) => {
-    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
-    res.send(deletedOrder);
+    const order = await Order.findByIdAndDelete(req.params.id);
+    res.send(order);
 });
 
 const PORT = process.env.PORT || 5000;

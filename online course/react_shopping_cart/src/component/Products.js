@@ -46,7 +46,8 @@ class Products extends Component{
                                 </div>
                             </li>
                         ))}
-                    </ul> )}
+                    </ul> 
+                    )}
                 </Fade>
                 {product && (
                     <Modal isOpen={true} onRequestClose={this.handleCloseModal}>
@@ -84,15 +85,20 @@ class Products extends Component{
     }
 }
 
-function mapStateToProps(state){ 
-	return {
-        products: state.products.filteredItems,
-    };
-}
-
-export default connect(mapStateToProps, {fetchProducts, addToCart})(Products);
-
+export default connect(
+    (state) => ({products: state.products.filteredItems}),
+    {
+        fetchProducts,
+        addToCart,
+    }
+)(Products);
 /*
 use callback if passing parameter at eventlistener func
 https://stackoverflow.com/questions/65848052/callback-function-on-button-onclick-in-react-functional-component
+function mapStateToProps(state){ 
+	return {
+        products: state.products.filteredItems
+    };
+}
+export default connect(mapStateToProps, {fetchProducts, addToCart})(Products);
 */

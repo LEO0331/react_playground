@@ -42,7 +42,9 @@ header{
   background-color:  var(--primary-color);
   color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 0.5rem;
 }
 header a{
   color: white;
@@ -210,8 +212,8 @@ input{
 .order-detail{
   display: flex;
   flex-direction: column;
-  flex-direction: center;
   justify-content: center;
+  align-items: center;
   height: 100%;
 }
 .order-detail li{
@@ -219,13 +221,26 @@ input{
   justify-content: space-between;
   align-items: center;
 }
-.order-details li div {
+.order-detail li div{
   padding: 8px;
 }
-.order-details .items {
+.order-detail .items{
   text-align: right;
   padding: 0;
 }
-.message {
+.message{
   color: var(--messageOK-color);
+}
+.orders{
+  width: 100%;
+  padding: 12px;
+}
+tbody > tr:nth-child(odd){
+  background-color: var(--border-color);
+}
+td{
+  padding: 6px;
+}
+th{
+  text-align: left;
 }
