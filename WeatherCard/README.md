@@ -1,8 +1,10 @@
 # Weather Greeting Card
 
 Based on the geolocation, the web will show different welcoming message.
-![home]()
-![loading]()
+
+![home](https://github.com/LEO0331/react_playground/blob/main/WeatherCard/home.png)
+
+![loading](https://github.com/LEO0331/react_playground/blob/main/WeatherCard/loading.png)
 
 ## Getting Started with Create React App
 
